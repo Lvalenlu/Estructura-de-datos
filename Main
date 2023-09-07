@@ -1,0 +1,103 @@
+import java.util.Scanner;
+import java.util.Random;
+
+public class Main {
+
+    private int[] v;
+    private Scanner sc;
+
+    /**
+     * Constructor for objects of class TestFila
+     */
+    public Main() {
+        sc = new Scanner(System.in);
+    }
+
+    public void procesarOperacionesArreglo() {
+        String menu = "\n1. Llenar arreglo contador.\n2. Llenar arreglo aleatorios\n"
+                + "3. Llenar arreglo por teclado\n4. Imprimir vector\n"
+                + "5. Obtener arreglo\n6. Salir\n\nSeleccione opcion";
+        int opc;
+        int size = 10; // Tamaño predeterminado del arreglo
+
+        do {
+            System.out.println(menu);
+            opc = sc.nextInt();
+
+            switch (opc) {
+                case 1:
+                    llenarArregloContador(size);
+                    break;
+                case 2:
+                    llenarValoresAleatorios(size);
+                    break;
+                case 3:
+                    llenarValoresTeclado(size);
+                    break;
+                case 4:
+                    imprimirVector();
+                    break;
+                case 5:
+                    System.out.println(obtenerVector());
+                    break;
+                case 6:
+                    System.out.println("Saliendo...");
+                    break;
+                default:
+                    System.out.println("Opción no válida");
+            }
+        } while (opc != 6);
+    }
+
+    public void llenarArregloContador(int n) {
+        v = new int[n];
+        for (int i = 0; i < n; i++) {
+            v[i] = i + 1;
+        }
+    }
+
+    public void llenarValoresAleatorios(int n) {
+        v = new int[n];
+        Random rnd = new Random();
+        final int VALOR_MAXIMO = 20;
+
+        for (int i = 0; i < n; i++) {
+            v[i] = rnd.nextInt(VALOR_MAXIMO) + 1;
+        }
+    }
+
+    public void llenarValoresTeclado(int n) {
+        v = new int[n];
+        for (int i = 0; i < n; i++) {
+            System.out.print("Ingrese el valor para la posición " + (i + 1) + ": ");
+            v[i] = sc.nextInt();
+        }
+    }
+
+    public void imprimirVector() {
+        if (v != null) {
+            for (int i = 0; i < v.length; i++) {
+                System.out.println("Posición " + (i + 1) + ": " + v[i]);
+            }
+        } else {
+            System.out.println("El vector está vacío.");
+        }
+    }
+
+    public String obtenerVector() {
+        StringBuilder strVector = new StringBuilder();
+        if (v != null) {
+            for (int i = 0; i < v.length; i++) {
+                strVector.append("Posición ").append(i + 1).append(": ").append(v[i]).append("\n");
+            }
+        } else {
+            strVector.append("El vector está vacío.");
+        }
+        return strVector.toString();
+    }
+
+    public static void main(String[] args) {
+        Main app = new Main();
+        app.procesarOperacionesArreglo();
+    }
+}
