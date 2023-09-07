@@ -5,10 +5,6 @@ public class Main {
 
     private int[] v;
     private Scanner sc;
-
-    /**
-     * Constructor for objects of class TestFila
-     */
     public Main() {
         sc = new Scanner(System.in);
     }
@@ -18,7 +14,7 @@ public class Main {
                 + "3. Llenar arreglo por teclado\n4. Imprimir vector\n"
                 + "5. Obtener arreglo\n6. Salir\n\nSeleccione opcion";
         int opc;
-        int size = 10; // Tamaño predeterminado del arreglo
+        int size = 10; 
 
         do {
             System.out.println(menu);
