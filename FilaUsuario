@@ -1,0 +1,62 @@
+import java.util.Queue;
+import java.util.LinkedList;
+
+public class FilaUsuario {
+
+    private Queue<Integer> q;
+    private Integer user;
+
+    public FilaUsuario() {
+        this.q = new LinkedList<>();
+        this.user = 1;
+    }
+
+    public void llenarFila() {
+        q.add(user);
+        user++;
+        imprimirFila();
+    }
+
+    public void retirarUsuarioFila() {
+        if(q.peek() != null){
+            System.out.println("Valor: " + q.poll());
+        }
+        imprimirFila();
+    }
+
+    public boolean estaVacia() {
+        if(q.isEmpty()){
+            return true;
+        }
+        return false;
+    }
+
+    public void imprimirFila() {
+        System.out.println("");
+        for (Integer dato : q){
+            System.out.println(" "+dato);
+        }
+        System.out.println("");
+    }
+    public static void main(String[] args) {
+        FilaUsuario fila = new FilaUsuario();
+
+        System.out.println("Fila de Usuarios:");
+        fila.imprimirFila();
+
+        fila.llenarFila();
+        fila.llenarFila();
+        fila.llenarFila();
+
+        System.out.println("¿La fila está vacía? " + fila.estaVacia());
+
+        fila.retirarUsuarioFila();
+        fila.retirarUsuarioFila();
+
+        System.out.println("¿La fila está vacía? " + fila.estaVacia());
+
+        fila.llenarFila();
+
+        System.out.println("¿La fila está vacía? " + fila.estaVacia());
+    }
+}
