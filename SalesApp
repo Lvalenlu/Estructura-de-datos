@@ -1,0 +1,84 @@
+import java.util.Random;
+import java.util.Scanner;
+
+class Sales{
+    private int[] sales;
+
+    public Sales(int numProducts) {
+        sales = new int[numProducts];
+    }
+
+    public void setSales(int[] newSales) {
+        sales = newSales;
+    }
+
+    public int getMaxSale() {
+        int maxSale = Integer.MIN_VALUE;
+        for (int sale : sales) {
+            if (sale > maxSale) {
+                maxSale = sale;
+            }
+        }
+        return maxSale;
+    }
+
+    public int getMinSale() {
+        int minSale = Integer.MAX_VALUE;
+        for (int sale : sales) {
+            if (sale < minSale) {
+                minSale = sale;
+            }
+        }
+        return minSale;
+    }
+
+    public int getTotalSales() {
+        int total = 0;
+        for (int sale : sales) {
+            total += sale;
+        }
+        return total;
+    }
+
+    public int getSale(int productIndex) {
+        if (productIndex >= 0 && productIndex < sales.length) {
+            return sales[productIndex];
+        }
+        return -1; // Valor sentinela para indicar índice inválido
+    }
+
+    public double getAverageSale() {
+        int totalSales = getTotalSales();
+        return (double) totalSales / sales.length;
+    }
+}
+
+public class SalesApp {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Ingrese el número de productos: ");
+        int numProducts = scanner.nextInt();
+        Sales Sales = new Sales(numProducts);
+
+        int[] newSales = new int[numProducts];
+        for (int i = 0; i < numProducts; i++) {
+            System.out.print("Ingrese la venta para el producto " + (i + 1) + ": ");
+            newSales[i] = scanner.nextInt();
+        }
+
+        Sales.setSales(newSales);
+
+        System.out.println("Sales registradas:");
+        for (int i = 0; i < numProducts; i++) {
+            System.out.println("Producto " + (i + 1) + ": " + Sales.getSale(i));
+        }
+
+        System.out.println("Venta máxima: " + Sales.getMaxSale());
+        System.out.println("Venta mínima: " + Sales.getMinSale());
+        System.out.println("Venta total: " + Sales.getTotalSales());
+        System.out.println("Media de Sales: " + Sales.getAverageSale());
+
+        scanner.close();
+    }
+}
