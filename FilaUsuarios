@@ -1,0 +1,105 @@
+import java.util.Random;
+
+public class FilaUsuarios {
+    private static final int MAX_QUEUE_SIZE = 10; // Tamaño máximo de la fila
+    private int[] queue = new int[MAX_QUEUE_SIZE];
+    private int front = 0; // Índice del primer elemento en la fila
+    private int rear = -1; // Índice del último elemento en la fila
+    private int size = 0; // Tamaño actual de la fila
+
+    public void enqueue(int numUsers) {
+        if (size + numUsers <= MAX_QUEUE_SIZE) {
+            for (int i = 0; i < numUsers; i++) {
+                rear = (rear + 1) % MAX_QUEUE_SIZE;
+                queue[rear] = size + 1; // Simulación de número de usuario
+                size++;
+            }
+        }
+    }
+
+    public void dequeue() {
+        if (!isEmpty()) {
+            front = (front + 1) % MAX_QUEUE_SIZE;
+            size--;
+        }
+    }
+
+    public void dequeue(int numUsers) {
+        if (numUsers <= size) {
+            for (int i = 0; i < numUsers; i++) {
+                dequeue();
+            }
+        }
+    }
+
+    public void listUsers() {
+        for (int i = 0; i < size; i++) {
+            System.out.print(queue[(front + i) % MAX_QUEUE_SIZE] + " ");
+        }
+        System.out.println();
+    }
+
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    public boolean isFull() {
+        return size == MAX_QUEUE_SIZE;
+    }
+
+    public int getFirstUser() {
+        if (!isEmpty()) {
+            return queue[front];
+        }
+        return -1; // Valor sentinela para indicar que la fila está vacía
+    }
+
+    public static void main(String[] args) {
+        FilaUsuarios userQueue = new FilaUsuarios();
+        Random random = new Random();
+
+        // Simulación de llegada de usuarios
+        int numUsersArriving = random.nextInt(5) + 1;
+        System.out.println("Llegaron " + numUsersArriving + " usuarios a la fila.");
+        userQueue.enqueue(numUsersArriving);
+
+        // Mostrar lista de usuarios en la fila
+        System.out.print("Usuarios en la fila: ");
+        userQueue.listUsers();
+
+        // Verificar si la fila está vacía
+        if (userQueue.isEmpty()) {
+            System.out.println("La fila está vacía.");
+        } else {
+            System.out.println("La fila no está vacía.");
+        }
+
+        // Ver el primer elemento en la fila
+        int firstUser = userQueue.getFirstUser();
+        if (firstUser != -1) {
+            System.out.println("El primer usuario en la fila es: " + firstUser);
+        } else {
+            System.out.println("La fila está vacía, no hay primer usuario.");
+        }
+
+        // Validar si la fila está llena
+        if (userQueue.isFull()) {
+            System.out.println("La fila está llena.");
+        } else {
+            System.out.println("La fila no está llena.");
+        }
+
+        // Retirar dos usuarios de la fila
+        int numUsersToDequeue = 2;
+        if (numUsersToDequeue <= userQueue.size) {
+            userQueue.dequeue(numUsersToDequeue);
+            System.out.println("Se retiraron " + numUsersToDequeue + " usuarios de la fila.");
+        } else {
+            System.out.println("No hay suficientes usuarios en la fila para retirar.");
+        }
+
+        // Mostrar lista de usuarios en la fila después de retirar
+        System.out.print("Usuarios en la fila: ");
+        userQueue.listUsers();
+    }
+}
